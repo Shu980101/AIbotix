@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<robot name="femto_bolt">
+
+  <!-- Properties -->
+  <property name="M_PI" value="3.1415926535897931" />
+
+  <!-- Dimensions from the provided specifications -->
+  <property name="cam_width" value="0.1153"/>
+  <property name="cam_height" value="0.06495"/>
+  <property name="cam_depth" value="0.04026"/>
+  <property name="mesh_path" value="package://orbbec_description/meshes/femto_bolt/" />
+
+  <!-- The following values are approximate but the camera node
+       publishes TF values with actual calibrated camera extrinsic values -->
+  <property name="base_link_to_link_x" value="0.03645"/>
+  <property name="base_link_to_link_y" value="0.00198"/>
+  <property name="base_link_to_link_z" value="0.021"/>
+  <property name="depth_to_ir_offset" value="0.0"/>
+  <property name="camera_link_to_depth_rotation_roll" value="-0.0063718"/>
+  <property name="camera_link_to_depth_rotation_pitch" value="0.1061316"/>
+  <property name="camera_link_to_depth_rotation_yaw" value="0.000231"/>
+  <property name="depth_to_color_offset_x" value="-0.0021445322036743163"/>
+  <property name="depth_to_color_offset_y" value="-0.03267627716064453"/>
+  <property name="depth_to_color_offset_z" value="-0.0010942233800888062"/>
+  <property name="depth_to_color_rotation_roll" value="0.006371800289866152"/>
+  <property name="depth_to_color_rotation_pitch" value="-0.10613163835054795"/>
+  <property name="depth_to_color_rotation_yaw" value="-0.00023102465978322808"/>
+
+  <!-- Define the base_link explicitly -->
+  <link name="base_link"/>
+
+  <!-- Base Link -->
+  <joint name="femto_bolt_base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="femto_bolt_base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="femto_bolt_base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://orbbec_description/meshes/femto_bolt/femto_bolt.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792 0.820 0.933 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://orbbec_description/meshes/femto_bolt/femto_bolt.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <!-- Camera Link -->
+  <joint name="femto_bolt_link_joint" type="fixed">
+    <origin xyz="0.03645 0.00198 0.021" rpy="0 0 0"/>
+    <parent link="femto_bolt_base_link"/>
+    <child link="femto_bolt_link"/>
+  </joint>
+
+  <link name="femto_bolt_link" />
+
+  <!-- Depth Frame -->
+  <joint name="femto_bolt_depth_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-0.0063718 0.1061316 0.000231"/>
+    <parent link="femto_bolt_link"/>
+    <child link="femto_bolt_depth_frame" />
+  </joint>
+
+  <link name="femto_bolt_depth_frame"/>
+
+  <!-- Depth Optical Frame -->
+  <joint name="femto_bolt_depth_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="femto_bolt_depth_frame"/>
+    <child link="femto_bolt_depth_optical_frame"/>
+  </joint>
+
+  <link name="femto_bolt_depth_optical_frame"/>
+
+  <!-- IR Frame -->
+  <joint name="femto_bolt_ir_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="femto_bolt_depth_frame"/>
+    <child link="femto_bolt_ir_frame"/>
+  </joint>
+
+  <link name="femto_bolt_ir_frame"/>
+
+  <!-- IR Optical Frame -->
+  <joint name="femto_bolt_ir_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="femto_bolt_ir_frame"/>
+    <child link="femto_bolt_ir_optical_frame"/>
+  </joint>
+
+  <link name="femto_bolt_ir_optical_frame"/>
+
+  <!-- Color Frame -->
+  <joint name="femto_bolt_color_joint" type="fixed">
+    <origin xyz="-0.0021445322036743163 -0.03267627716064453 -0.0010942233800888062"
+            rpy="0.006371800289866152 -0.10613163835054795 -0.00023102465978322808"/>
+    <parent link="femto_bolt_depth_frame"/>
+    <child link="femto_bolt_color_frame"/>
+  </joint>
+
+  <link name="femto_bolt_color_frame"/>
+
+  <!-- Color Optical Frame -->
+  <joint name="femto_bolt_color_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="femto_bolt_color_frame"/>
+    <child link="femto_bolt_color_optical_frame"/>
+  </joint>
+
+  <link name="femto_bolt_color_optical_frame"/>
+  
+</robot>
+

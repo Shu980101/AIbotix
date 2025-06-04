@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Declare arguments -->
+  <arg name="sim" default="true" />
+  <arg name="pipeline" default="ompl" />
+
+  <!-- Launch the Orbbec Femto Bolt -->
+  <include file="$(find-pkg-share orbbec_camera)/launch/femto_bolt.launch.py" />
+
+  <!-- ArUco marker nodes -->
+  <node pkg="aruco_camera" exec="camera_static" />
+  <node pkg="aruco_camera" exec="multi_arucos_detection" />
+
+</launch>

@@ -1,0 +1,4 @@
+pick_n_place_interfaces/ArucoMarkers[] aruco_array
+---
+pick_n_place_interfaces/ArucoMarkers[] transformed_aruco_array
+

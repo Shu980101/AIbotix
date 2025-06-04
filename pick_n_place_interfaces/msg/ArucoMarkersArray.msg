@@ -1,0 +1,1 @@
+pick_n_place_interfaces/ArucoMarkers[] aruco_array

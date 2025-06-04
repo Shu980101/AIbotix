@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Declare arguments -->
+  <arg name="sim" default="true" />
+  <arg name="pipeline" default="pilz" />
+
+  <!-- Include your pick and place logic -->
+  <include file="$(find-pkg-share ur_commander)/launch/pick_n_place.launch.py">
+    <arg name="sim" value="$(var sim)" />
+    <arg name="pipeline" value="$(var pipeline)" />
+  </include>
+
+</launch>
